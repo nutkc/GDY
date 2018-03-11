@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="GDY"
+  id="myeclipse.1517450993486"
+  context-root="/GDY"
+  j2ee-spec="6.0"
+  archive="GDY.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

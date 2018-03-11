@@ -1,0 +1,136 @@
+	2能管2？？？？
+	
+	
+	/**
+	 *
+	 * 注意！！！！ 使用JSON传递数据时无法传递中文！！！1
+	 * 解决方法！！！！
+	 * 在Servlet向浏览器相应参数之前先使用URLEncoder.encode(str,"utf-8");进行url编码
+	 * 在浏览器端 js中对接收到的字符串进行url解码  调用    var str = decodeURIComponent(str);
+	 *          注意！！！！！！！！！                                                          ↑↑  这个方法的参数不能是null或空  要在检验后调用这个方法 否则除了IE其他浏览器会炸
+	 */
+	
+	-- 需要解决2管2的规则错误 
+		需要在jsp中添加自动排序 -- 
+	/**
+	 *
+	 *
+	 *	关于BufferedImage绘制图片透明部位被填充黑色的问题
+	 *		1.在创建BufferedImage对象时 要选择支持透明的BufferedImage.TYPE_4BYTE_ABGR
+	 *
+	 *		2.在使用ImageIO保存图片时需要以PNG格式保存  jpg格式不支持透明度信息
+	 *
+	 */
+
+/**
+ *
+ *如何让span元素在css中position：absolute居中？
+ *	     position：absolute; left: 0; right: 0; top: 300px; margin: auto;
+ *
+ *
+ */
+
+							没跟上				    并且		这次不是2
+record.getValue() != lastRecord.getValue() +1 && record.getValue() != 13  == false
+
+	/**
+	 *
+	 * 关于DOM中节点属性问题的总结
+	 * 
+	 * 1. 对于节点固有属性 可用 ele.style.top形式获取到属性 String top 但注意style属性在IE中是Object对象 但在其他浏览器中是String
+	 * 2. 对于自定义的节点属性 需要注意的是数据类型的区别 在除了IE的其他浏览器中，所有属性包括style都是已String类型存在的 不可以把布尔型的true赋值给需要字符串类型的"true"的变量中
+	 *
+	 * 需要做的是：
+	 * 1. 对于所有属性采用ele.getAttribute("key")和ele.setAttribute("key",value)两个方法进行操作。 但为了简化代码复杂的自有属性可以直接ele.key获取
+	 * 2. setAttribute时需要注意属性的类型是什么 切不可把布尔型值赋给字符串属性	
+	 *
+	 */
+	 
+	 /**
+	  *		关于update方法重复向服务器请求手牌的AJAX问题
+	  *
+	  *		在IE中由于请求数据一致且频繁  故应该加上一个参数 可以使用 ?time=new Date().getTime() 作为参数追加在open的第二个参数即请求地址后  （POST请求放在send方法里边）
+	  *
+	  */
+	 
+	 /**
+	  *
+	  * 注意 eval函数转换字符串有安全问题
+	  *	 	经查阅资料  使用JSON.parse(str); 执行json串
+	  *			但IE为了向下兼容 默认使用JScript5.7版本 
+	  *			而JSON对象在JScript5.8才有 
+	  *			所以对于不需要IE6、IE7支持的页面可以声明为IE8解决
+	  * 		<meta http-equiv="X-UA-Compatible" content="IE=8">
+	  *		 
+	  *  		其他解决方法是 1.引入定义json的文件json2.js
+	  					   2.引入包含json的query文件夹	
+	  *
+	  */
+	  
+	  
+	 /**
+	  * table.jsp应有过滤器检测用户是否注册到user_room中
+	  
+	 Map<String,TableControl> rooms = (Map<String, TableControl>) request.getServletContext().getAttribute("rooms");
+	 Map<String,String> user_room = (Map<String, String>) request.getServletContext().getAttribute("user_room");
+	 
+	 
+	 
+	 				if(xmlHttp.getResponseHeader("unready") == "false") {
+					//服务器没有接受到取消准备请求时 执行以下代码
+					var str = xmlHttp.responseText;
+					changePokers(str);
+				} else if(xmlHttp.getResponseHeader("unready") == "true") {
+					//服务器接受到取消准备请求时 执行以下代码
+					ele.setAttribute("ready","false");
+					ele.innerHTML = "准备";
+				} else {
+					alert("服务器响应异常");
+				}
+				
+				
+				网页错误详细信息
+
+用户代理: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; Creative AutoUpdate v1.41.09)
+时间戳: Sat, 3 Feb 2018 06:47:54 UTC
+
+
+消息: 语法错误
+行: 101
+字符: 3
+代码: 0
+URI: http://127.0.0.1/GDY/EnterRoomServlet;jsessionid=69B68C1DA59FFB74EFA1335751728106
+
+				
+				
+				
+	后续：对table.jsp添加定时刷新功能 刷新到相应则停止刷新
+		待解决问题 Update中的<String, Response>没有存在意义， response是单例的先考虑由jsp页面自行请求更新手牌 不在设置updateAll方法
+		
+		
+		
+		
+	
+	
+	
+		String str = request.getParameter("obj");
+		List<Poker> pokers = toBeans(str);
+		HashMap<String, Table> rooms = (HashMap<String, Table>) request.getServletContext().getAttribute("rooms");
+		Table table = rooms.get(((HashMap<String, String>)request.getServletContext().getAttribute("user_room")).get(request.getRequestedSessionId()));
+		HashMap<String, Player> players = table.getPlayers();
+		Player p1 = players.get(request.getSession().getId());
+		
+		if(pokers.size() == 0) {
+			System.out.println("pokers Size == 0 ");
+			out.println(toJsonStr(p1.getPokers()));
+			response.setHeader("error", "1");
+		}
+		if(table.getRule().compare((LinkedList<Poker>) pokers)) {
+			List<Poker> leftPokers = p1.produce((LinkedList<Poker>) pokers);
+			String resStr = toJsonStr(leftPokers);
+			out.println(resStr);
+		} else {
+			out.println(toJsonStr(p1.getPokers()));
+			response.setHeader("error", "1");
+		}
+		System.out.println("rooms=====" + request.getServletContext().getAttribute("rooms"));
